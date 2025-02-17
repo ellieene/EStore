@@ -1,18 +1,17 @@
-package ru.isands.test.estore.service;
+package ru.isands.test.estore.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.isands.test.estore.exception.EntityNotFound;
 import ru.isands.test.estore.exception.GenderException;
 import ru.isands.test.estore.model.dto.EmployeeDTO;
-import ru.isands.test.estore.model.dto.ShopDTO;
 import ru.isands.test.estore.model.entity.Employee;
-import ru.isands.test.estore.model.entity.directory.Shop;
 import ru.isands.test.estore.model.enums.Gender;
 import ru.isands.test.estore.repository.EmployeeRepository;
-import ru.isands.test.estore.repository.ShopRepository;
+import ru.isands.test.estore.service.EmployeeService;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,10 +21,10 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
 
     private final ModelMapper modelMapper;
-    private final ShopRepository shopRepository;
+    private final ShopServiceImpl shopService;
     private final EmployeeRepository employeeRepository;
 
     /**
@@ -35,10 +34,11 @@ public class EmployeeService {
      * @return ID нового сотрудника
      */
     @Transactional
+    @Override
     public Long addEmployee(EmployeeDTO employeeDTO) {
         Employee employee = modelMapper.map(employeeDTO, Employee.class);
 
-        employee.setShop(storeCheck(employeeDTO.getShop()));
+        employee.setShop(shopService.shopCheckInDTO(employeeDTO.getShop()));
         employee.setGender(genderCheck(employeeDTO.getGender()));
         employeeRepository.save(employee);
         return employee.getId();
@@ -51,12 +51,12 @@ public class EmployeeService {
      * @param id          сотрудника которого хотим изменить
      */
     @Transactional
+    @Override
     public void updateEmployee(EmployeeDTO employeeDTO, Long id) {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFound("Сотрудник не найден"));
+        Employee employee = employeeCheck(id);
 
         modelMapper.map(employeeDTO, employee);
-        employee.setShop(storeCheck(employeeDTO.getShop()));
+        employee.setShop(shopService.shopCheckInDTO(employeeDTO.getShop()));
         employeeRepository.save(employee);
     }
 
@@ -66,10 +66,9 @@ public class EmployeeService {
      * @param id сотрудника
      */
     @Transactional
+    @Override
     public void deleteEmployee(Long id) {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFound("Сотрудник не найден"));
-        employeeRepository.delete(employee);
+        employeeRepository.delete(employeeCheck(id));
     }
 
     /**
@@ -79,9 +78,9 @@ public class EmployeeService {
      * @return {@link EmployeeDTO}
      */
     @Transactional
+    @Override
     public EmployeeDTO getEmployee(Long id) {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFound("Сотрудник не найден"));
+        Employee employee = employeeCheck(id);
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 
@@ -92,22 +91,25 @@ public class EmployeeService {
      * @return List {@link EmployeeDTO}
      */
     @Transactional
-    public List<EmployeeDTO> getAllEmployees() {
-        return modelMapper.map(employeeRepository.findAll(),
+    @Override
+    public List<EmployeeDTO> getAllEmployees(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return modelMapper.map(employeeRepository.findAll(pageRequest).getContent(),
                 new TypeToken<List<EmployeeDTO>>() {
                 }.getType());
     }
 
-
     /**
-     * Проверка магазина
+     * Проверка сотрудника
      *
-     * @param shop магазин
-     * @return {@link Shop}
+     * @param id ID сотрудника
+     * @return {@link Employee}
      */
-    private Shop storeCheck(ShopDTO shop) {
-        return shopRepository.findAllByNameAndAddress(shop.getName(), shop.getAddress())
-                .orElseThrow(() -> new EntityNotFound("Магазин не найден"));
+    @Transactional
+    @Override
+    public Employee employeeCheck(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFound("Сотрудник не найден"));
     }
 
 

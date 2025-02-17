@@ -2,20 +2,21 @@ package ru.isands.test.estore.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.isands.test.estore.exception.EntityExist;
 import ru.isands.test.estore.exception.EntityNotFound;
 import ru.isands.test.estore.model.dto.PositionDTO;
 import ru.isands.test.estore.model.entity.directory.Position;
 import ru.isands.test.estore.repository.JobTitleRepository;
-import ru.isands.test.estore.service.JobTitleService;
+import ru.isands.test.estore.service.PositionService;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class JobTitleServiceImpl implements JobTitleService {
+public class PositionServiceImpl implements PositionService {
 
     private final JobTitleRepository jobTitleRepository;
     private final ModelMapper modelMapper;
@@ -23,6 +24,7 @@ public class JobTitleServiceImpl implements JobTitleService {
 
     /**
      * Создание должности
+     *
      * @param positionDto должность
      * @return ID должности
      */
@@ -40,50 +42,66 @@ public class JobTitleServiceImpl implements JobTitleService {
 
     /**
      * Изменение должности
+     *
      * @param positionDTO DTO должности
-     * @param id ID должности
+     * @param id          ID должности
      */
     @Transactional
     @Override
     public void updateJobTitle(PositionDTO positionDTO, Long id) {
-        Position position = jobTitleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFound("Должность не найдена"));
+        jobTitleRepository.findByName(positionDTO.getName())
+                .ifPresent(job -> {
+                    throw new EntityExist("Такая должность уже есть");
+                });
 
+        Position position = positionCheck(id);
         modelMapper.map(positionDTO, position);
         jobTitleRepository.save(position);
     }
 
     /**
      * Удаление должности
+     *
      * @param id ID должности
      */
     @Transactional
     @Override
     public void deleteJobTitle(Long id) {
-        jobTitleRepository.findById(id).orElseThrow(() -> new EntityNotFound("Должность не найдена"));
-        jobTitleRepository.deleteById(id);
+        jobTitleRepository.delete(positionCheck(id));
     }
 
     /**
      * Получение должности
+     *
      * @param id ID должности
      * @return {@link PositionDTO}
      */
     @Transactional
     @Override
     public PositionDTO getJobTitle(Long id) {
-        Position position = jobTitleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFound("Должность не найдена"));
+        Position position = positionCheck(id);
         return modelMapper.map(position, PositionDTO.class);
     }
 
     /**
      * Получение всех должностей
+     *
      * @return List {@link Position}
      */
     @Transactional
     @Override
-    public List<Position> getJobTitles() {
-        return jobTitleRepository.findAll();
+    public List<Position> getJobTitles(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return jobTitleRepository.findAll(pageRequest).getContent();
+    }
+
+    /**
+     * Проверка на должность
+     *
+     * @param id ID должности
+     * @return {@link Position}
+     */
+    private Position positionCheck(Long id) {
+        return jobTitleRepository.findById(id).orElseThrow(() -> new EntityNotFound("Должность не найдена"));
     }
 }

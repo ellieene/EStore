@@ -9,10 +9,10 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-public class ElectronicsType {
+public class ElectroType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false, length = 150)

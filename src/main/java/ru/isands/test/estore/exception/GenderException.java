@@ -1,7 +1,7 @@
-package com.example.doctorai.exception;
+package ru.isands.test.estore.exception;
 
-public class TokenExecption extends RuntimeException {
-    public TokenExecption(String message) {
+public class GenderException extends RuntimeException {
+    public GenderException(String message) {
         super(message);
     }
 }

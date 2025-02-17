@@ -7,6 +7,6 @@ import ru.isands.test.estore.model.entity.directory.ElectroType;
 import java.util.Optional;
 
 @Repository
-public interface ElectronicsTypeRepository extends JpaRepository<ElectroType, Long> {
+public interface ElectroTypeRepository extends JpaRepository<ElectroType, Long> {
     Optional<ElectroType> findByName(String name);
 }

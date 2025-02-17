@@ -7,6 +7,6 @@ import ru.isands.test.estore.model.entity.directory.PurchaseType;
 import java.util.Optional;
 
 @Repository
-public interface PuchaseTypeRepository extends JpaRepository<PurchaseType, Long> {
+public interface PurchaseTypeRepository extends JpaRepository<PurchaseType, Long> {
     Optional<PurchaseType> findByName(String name);
 }

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - electro-net
+
+  electro-backend:
+    build: ./
+    container_name: electro-backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    networks:
+      - electro-net
+
+  electro-frontend:
+    build: ./src/main/frontend
+    container_name: electro-frontend
+    ports:
+      - "80:80"
+    networks:
+      - electro-net
+
+volumes:
+  postgres:
+
+networks:
+  electro-net:
+    driver: bridge
