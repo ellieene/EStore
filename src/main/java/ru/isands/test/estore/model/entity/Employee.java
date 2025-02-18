@@ -17,7 +17,8 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
+    @TableGenerator(name = "id_generator", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_value", allocationSize = 1)
     @Column(name = "employee_id")
     private long id;
 
@@ -48,7 +49,11 @@ public class Employee {
     private Boolean gender;
 
     @ManyToMany
-    @JoinTable(name = "electro_employee")
-    private List<ElectroType> electroType;
+    @JoinTable(
+            name = "electro_employee",
+            joinColumns = @JoinColumn(name = "employee_employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "electro_type_id")
+    )
+    private List<ElectroType> electroTypes;
 
 }

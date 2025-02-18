@@ -15,6 +15,7 @@
     <a class="nav-link" id="tab-employees" href="#" onclick="loadEmployees()">👨‍💼 Сотрудники</a>
     <a class="nav-link" id="tab-transactions" href="#" onclick="loadTransactions()">💰 Транзакции</a>
 </nav>
+<button class="btn btn-info mb-2" onclick="showFileUploadForm()">📤 Загрузить ZIP</button>
 
 <div id="content"></div>
 
@@ -42,7 +43,44 @@
         });
     }
 
-    function showShopForm() {
+    function showFileUploadForm()
+    {
+        const form = `
+            <h3>Загрузить ZIP файл</h3>
+            <form id="file-upload-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="zip-file" class="form-label">Выберите ZIP файл</label>
+                    <input type="file" id="zip-file" class="form-control" accept=".zip" required>
+                </div>
+                <button type="submit" class="btn btn-info">Загрузить</button>
+                <button type="button" class="btn btn-secondary" onclick="loadShops()">Отменить</button>
+            </form>
+        `;
+        $('#content').html(form);
+
+        $('#file-upload-form').on('submit', function (event) {
+            event.preventDefault();
+            let formData = new FormData();
+            formData.append("file", $('#zip-file')[0].files[0]);
+
+            $.ajax({
+                url: 'http://localhost:8081/api/upload/zip', // Укажите правильный URL для обработки на сервере
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert('Файл успешно загружен!');
+                    loadShops();  // Возвращаемся к списку магазинов
+                },
+                error: function (xhr, status, error) {
+                    alert('Произошла ошибка при загрузке файла!');
+                }
+            });
+        });
+    }
+
+        function showShopForm() {
         const form = `
             <h3>Добавить магазин</h3>
             <form id="shop-form">
@@ -126,7 +164,6 @@
                     <thead><tr><th>ID</th><th>Название</th><th>Цена</th><th>Тип</th><th>Архивный</th><th>Действия</th></tr></thead>
                     <tbody>${data.map(item => `
                         <tr>
-                            <td>${item.id}</td>
                             <td>${item.name}</td>
                             <td>${item.price}</td>
                             <td>${item.electronicType}</td>
@@ -246,7 +283,6 @@
                     <thead><tr><th>ID</th><th>Имя</th><th>Фамилия</th><th>Должность</th><th>Действия</th></tr></thead>
                     <tbody>${data.map(employee => `
                         <tr>
-                            <td>${employee.id}</td>
                             <td>${employee.firstName}</td>
                             <td>${employee.lastName}</td>
                             <td>${employee.position}</td>
