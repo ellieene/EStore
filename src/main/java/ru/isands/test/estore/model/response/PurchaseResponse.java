@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 @Data
 public class PurchaseResponse {
 
+    private Long id;
+
     private String electroName;
 
     private EmployeeResponse employee;

@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/pyrchase-type")
+@CrossOrigin(origins = {"http://localhost:8082", "http://127.0.0.1:8082"})
 @Tag(name = "Тип оплаты")
 public class PurchaseTypeController {
 

@@ -9,6 +9,9 @@ import lombok.Data;
 @Data
 public class ElectroItemDTO {
 
+    @Schema(description = "ID", example = "1", required = true)
+    private Long id;
+
     @Schema(description = "Название товара", example = "Шуроповерт Titan-300w", required = true)
     private String name;
 

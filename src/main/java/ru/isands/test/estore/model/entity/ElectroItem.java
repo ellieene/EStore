@@ -1,5 +1,6 @@
 package ru.isands.test.estore.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import ru.isands.test.estore.model.entity.directory.ElectroType;

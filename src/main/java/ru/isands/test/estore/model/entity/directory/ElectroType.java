@@ -1,5 +1,6 @@
 package ru.isands.test.estore.model.entity.directory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ru.isands.test.estore.model.entity.Employee;
 
@@ -21,6 +22,7 @@ public class ElectroType {
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "electroTypes")
     private Set<Employee> employees;
 

@@ -11,6 +11,9 @@ import java.time.LocalDate;
 @Data
 public class EmployeeDTO {
 
+    @Schema(description = "ID", example = "1", required = true)
+    private Long id;
+
     @Schema(description = "Имя", example = " Валерий", required = true)
     private String lastName;
 

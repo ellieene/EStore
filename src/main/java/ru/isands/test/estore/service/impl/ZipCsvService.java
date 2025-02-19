@@ -175,6 +175,15 @@ public class ZipCsvService {
                     electroItem.setType(electroType);
                 }
 
+                electroItem.setName(record.get(3));
+                electroItem.setCount(Integer.parseInt(record.get(4)));
+                electroItem.setArchive(Boolean.parseBoolean(record.get(5)));
+                if (record.get(5).equals("1")) {
+                    electroItem.setArchive(false);
+                } else {
+                    electroItem.setArchive(true);
+                }
+                electroItem.setDescription(record.get(6));
                 electroItems.add(electroItem);
             } catch (Exception e) {
                 System.out.println("Ошибка при обработке записи ElectroItem: " + e.getMessage());

@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/job-title")
+@CrossOrigin(origins = {"http://localhost:8082", "http://127.0.0.1:8082"})
 @Tag(name = "Должности")
 public class JobTitleController {
 
