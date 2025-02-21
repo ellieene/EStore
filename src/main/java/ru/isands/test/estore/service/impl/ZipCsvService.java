@@ -297,7 +297,7 @@ public class ZipCsvService {
 
     private void savePurchases(Iterable<CSVRecord> records) {
         List<Purchase> purchases = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"); // Формат даты и времени
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
         for (CSVRecord record : records) {
             try {

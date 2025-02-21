@@ -61,7 +61,7 @@ public class PurchaseServiceImpl implements PurchaseServes {
      */
     @Transactional
     @Override
-    public void updatePurchase(PurchaseDTO purchaseDTO, Long id) {
+    public void updatePurchase(PurchaseDTO purchaseDTO, long id) {
         Purchase purchase = purchaseCheck(id);
         modelMapper.map(purchaseDTO, purchase);
         purchaseRepository.save(purchase);
@@ -74,7 +74,7 @@ public class PurchaseServiceImpl implements PurchaseServes {
      */
     @Transactional
     @Override
-    public void deletePurchase(Long id) {
+    public void deletePurchase(long id) {
         purchaseRepository.delete(purchaseCheck(id));
 
     }
@@ -87,7 +87,7 @@ public class PurchaseServiceImpl implements PurchaseServes {
      */
     @Transactional
     @Override
-    public PurchaseResponse getPurchase(Long id) {
+    public PurchaseResponse getPurchase(long id) {
         return modelMapper.map(purchaseCheck(id), PurchaseResponse.class);
     }
 
@@ -117,7 +117,7 @@ public class PurchaseServiceImpl implements PurchaseServes {
      * @param id ID транзакции
      * @return {@link Purchase}
      */
-    private Purchase purchaseCheck(Long id) {
+    private Purchase purchaseCheck(long id) {
         return purchaseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFound("Транзакция не найдена"));
     }

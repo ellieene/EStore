@@ -48,7 +48,7 @@ public class ShopServiceImpl implements ShopService {
      */
     @Transactional
     @Override
-    public void updateShop(Long id, ShopDTO shopDto) {
+    public void updateShop(long id, ShopDTO shopDto) {
         shopRepository.findAllByNameAndAddress(shopDto.getName(), shopDto.getAddress())
                 .ifPresent(shop1 -> {
                     throw new EntityExist("Такой магазин уже есть");
@@ -66,7 +66,7 @@ public class ShopServiceImpl implements ShopService {
      */
     @Transactional
     @Override
-    public void deleteShop(Long id) {
+    public void deleteShop(long id) {
         shopRepository.delete(shopCheckinId(id));
     }
 
@@ -78,7 +78,7 @@ public class ShopServiceImpl implements ShopService {
      */
     @Transactional
     @Override
-    public ShopDTO getShop(Long id) {
+    public ShopDTO getShop(long id) {
         Shop shop = shopCheckinId(id);
         return modelMapper.map(shop, ShopDTO.class);
     }
@@ -114,7 +114,7 @@ public class ShopServiceImpl implements ShopService {
      * @param id ID магазина
      * @return {@link Shop}
      */
-    private Shop shopCheckinId(Long id) {
+    private Shop shopCheckinId(long id) {
         return shopRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFound("Магазин не найден"));
     }

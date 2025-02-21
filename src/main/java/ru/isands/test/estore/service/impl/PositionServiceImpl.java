@@ -48,7 +48,7 @@ public class PositionServiceImpl implements PositionService {
      */
     @Transactional
     @Override
-    public void updateJobTitle(PositionDTO positionDTO, Long id) {
+    public void updateJobTitle(PositionDTO positionDTO, long id) {
         jobTitleRepository.findByName(positionDTO.getName())
                 .ifPresent(job -> {
                     throw new EntityExist("Такая должность уже есть");
@@ -66,7 +66,7 @@ public class PositionServiceImpl implements PositionService {
      */
     @Transactional
     @Override
-    public void deleteJobTitle(Long id) {
+    public void deleteJobTitle(long id) {
         jobTitleRepository.delete(positionCheck(id));
     }
 
@@ -78,7 +78,7 @@ public class PositionServiceImpl implements PositionService {
      */
     @Transactional
     @Override
-    public PositionDTO getJobTitle(Long id) {
+    public PositionDTO getJobTitle(long id) {
         Position position = positionCheck(id);
         return modelMapper.map(position, PositionDTO.class);
     }
@@ -101,7 +101,7 @@ public class PositionServiceImpl implements PositionService {
      * @param id ID должности
      * @return {@link Position}
      */
-    private Position positionCheck(Long id) {
+    private Position positionCheck(long id) {
         return jobTitleRepository.findById(id).orElseThrow(() -> new EntityNotFound("Должность не найдена"));
     }
 }

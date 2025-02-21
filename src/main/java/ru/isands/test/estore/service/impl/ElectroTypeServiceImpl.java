@@ -48,7 +48,7 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
      */
     @Transactional
     @Override
-    public void updateType(ElectroTypeDTO electroTypeDTO, Long id) {
+    public void updateType(ElectroTypeDTO electroTypeDTO, long id) {
         electroTypeRepository.findByName(electroTypeDTO.getName())
                 .ifPresent((e) -> {
                     throw new EntityExist("Такой тип товара уже есть");
@@ -66,7 +66,7 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
      */
     @Transactional
     @Override
-    public void deleteType(Long id) {
+    public void deleteType(long id) {
         electroTypeRepository.delete(electroTypeCheck(id));
     }
 
@@ -78,7 +78,7 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
      */
     @Transactional
     @Override
-    public ElectroTypeDTO getType(Long id) {
+    public ElectroTypeDTO getType(long id) {
         return modelMapper.map(electroTypeCheck(id), ElectroTypeDTO.class);
     }
 
@@ -100,7 +100,7 @@ public class ElectroTypeServiceImpl implements ElectroTypeService {
      * @param id ID тип товара
      * @return {@link ElectroType}
      */
-    private ElectroType electroTypeCheck(Long id) {
+    private ElectroType electroTypeCheck(long id) {
         return electroTypeRepository.findById(id).orElseThrow(() -> new EntityNotFound("Тип товара не найден"));
     }
 }

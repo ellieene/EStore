@@ -9,11 +9,11 @@ public interface PurchaseServes {
 
     Long createPurchase(PurchaseDTO purchaseDTO);
 
-    void updatePurchase(PurchaseDTO purchaseDTO, Long id);
+    void updatePurchase(PurchaseDTO purchaseDTO, long id);
 
-    void deletePurchase(Long id);
+    void deletePurchase(long id);
 
-    PurchaseResponse getPurchase(Long id);
+    PurchaseResponse getPurchase(long id);
 
     List<PurchaseResponse> getAllPurchases(boolean sort, int page, int size);
 }

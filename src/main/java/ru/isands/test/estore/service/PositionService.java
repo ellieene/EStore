@@ -9,11 +9,11 @@ public interface PositionService {
 
     Long createJobTitle(PositionDTO jobTitle);
 
-    void updateJobTitle(PositionDTO positionDTO, Long id);
+    void updateJobTitle(PositionDTO positionDTO, long id);
 
-    void deleteJobTitle(Long id);
+    void deleteJobTitle(long id);
 
-    PositionDTO getJobTitle(Long id);
+    PositionDTO getJobTitle(long id);
 
     List<Position> getJobTitles(int page, int size);
 }

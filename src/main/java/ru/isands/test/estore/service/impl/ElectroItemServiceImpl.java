@@ -50,7 +50,7 @@ public class ElectroItemServiceImpl implements ElectroItemService {
      */
     @Transactional
     @Override
-    public void updateElectroItem(ElectroItemDTO electroItemDTO, Long id) {
+    public void updateElectroItem(ElectroItemDTO electroItemDTO, long id) {
         repository.findByName(electroItemDTO.getName())
                 .ifPresent(item -> {
                     throw new EntityExist("Такой товар уже есть");
@@ -69,7 +69,7 @@ public class ElectroItemServiceImpl implements ElectroItemService {
      */
     @Transactional
     @Override
-    public ElectroItemDTO getElectroItem(Long id) {
+    public ElectroItemDTO getElectroItem(long id) {
         return modelMapper.map(electroItemCheck(id), ElectroItemDTO.class);
     }
 
@@ -94,7 +94,7 @@ public class ElectroItemServiceImpl implements ElectroItemService {
      */
     @Transactional
     @Override
-    public void deleteElectroItem(Long id) {
+    public void deleteElectroItem(long id) {
         repository.delete(electroItemCheck(id));
     }
 
@@ -117,7 +117,7 @@ public class ElectroItemServiceImpl implements ElectroItemService {
      * @param id ID товара
      * @return {@link ElectroItem}
      */
-    private ElectroItem electroItemCheck(Long id) {
+    private ElectroItem electroItemCheck(long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFound("Товар не найден"));
     }
 

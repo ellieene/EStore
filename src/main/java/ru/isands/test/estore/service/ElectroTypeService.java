@@ -9,11 +9,11 @@ public interface ElectroTypeService {
 
     Long createType(ElectroTypeDTO electroTypeDTO);
 
-    void updateType(ElectroTypeDTO electroTypeDTO, Long id);
+    void updateType(ElectroTypeDTO electroTypeDTO, long id);
 
-    void deleteType(Long id);
+    void deleteType(long id);
 
-    ElectroTypeDTO getType(Long id);
+    ElectroTypeDTO getType(long id);
 
     List<ElectroType> getAllTypes(int page, int size);
 }

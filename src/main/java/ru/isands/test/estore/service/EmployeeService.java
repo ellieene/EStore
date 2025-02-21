@@ -10,13 +10,13 @@ public interface EmployeeService {
 
     Long addEmployee(EmployeeDTO employeeDTO);
 
-    void updateEmployee(EmployeeDTO employeeDTO, Long id);
+    void updateEmployee(EmployeeDTO employeeDTO, long id);
 
-    void deleteEmployee(Long id);
+    void deleteEmployee(long id);
 
-    EmployeeDTO getEmployee(Long id);
+    EmployeeDTO getEmployee(long id);
 
     List<EmployeeDTO> getAllEmployees(int page, int size);
 
-    Employee employeeCheck(Long id);
+    Employee employeeCheck(long id);
 }

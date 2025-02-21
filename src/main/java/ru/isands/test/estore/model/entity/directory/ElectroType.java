@@ -19,7 +19,6 @@ public class ElectroType {
     @TableGenerator(name = "id_generator", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_value", allocationSize = 1)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 150)
     private String name;
 
     @JsonIgnore

@@ -9,13 +9,13 @@ public interface ElectroItemService {
 
     Long addElectroItem(ElectroItemDTO electroItemDTO);
 
-    void updateElectroItem(ElectroItemDTO item, Long id);
+    void updateElectroItem(ElectroItemDTO item, long id);
 
-    ElectroItemDTO getElectroItem(Long id);
+    ElectroItemDTO getElectroItem(long id);
 
     List<ElectroItemDTO> getElectroItemAll(int page, int size);
 
-    void deleteElectroItem(Long id);
+    void deleteElectroItem(long id);
 
     ElectroItem electroItemCheck(String name);
 }

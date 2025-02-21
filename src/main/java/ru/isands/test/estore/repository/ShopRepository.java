@@ -9,7 +9,4 @@ import java.util.Optional;
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long> {
     Optional<Shop> findAllByNameAndAddress(String name, String address);
-
-    boolean existsByNameAndAddress(String name, String address);
-
 }

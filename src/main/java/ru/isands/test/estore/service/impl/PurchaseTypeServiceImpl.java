@@ -46,7 +46,7 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
      */
     @Transactional
     @Override
-    public void updatePurchaseType(PurchaseTypeDTO purchaseTypeDTO, Long id) {
+    public void updatePurchaseType(PurchaseTypeDTO purchaseTypeDTO, long id) {
         purchaseTypeRepository.findByName(purchaseTypeDTO.getName())
                 .ifPresent((e) -> {
                     throw new EntityExist("Такой тип оплаты уже есть");
@@ -64,7 +64,7 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
      */
     @Transactional
     @Override
-    public void deletePurchaseType(Long id) {
+    public void deletePurchaseType(long id) {
         purchaseTypeRepository.delete(purchaseTypeCheck(id));
     }
 
@@ -76,7 +76,7 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
      */
     @Transactional
     @Override
-    public PurchaseTypeDTO getPurchaseType(Long id) {
+    public PurchaseTypeDTO getPurchaseType(long id) {
         PurchaseType purchaseType = purchaseTypeCheck(id);
 
         return modelMapper.map(purchaseType, PurchaseTypeDTO.class);
@@ -111,7 +111,7 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
      * @param id ID типа оплаты
      * @return {@link PurchaseType}
      */
-    private PurchaseType purchaseTypeCheck(Long id) {
+    private PurchaseType purchaseTypeCheck(long id) {
         return purchaseTypeRepository
                 .findById(id).orElseThrow(() -> new EntityNotFound("Такой тип оплаты не найден"));
     }

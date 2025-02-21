@@ -9,11 +9,11 @@ public interface ShopService {
 
     Long createShop(ShopDTO shopDto);
 
-    void updateShop(Long id, ShopDTO shopDto);
+    void updateShop(long id, ShopDTO shopDto);
 
-    void deleteShop(Long id);
+    void deleteShop(long id);
 
-    ShopDTO getShop(Long id);
+    ShopDTO getShop(long id);
 
     List<Shop> getAllShops(int page, int size);
 

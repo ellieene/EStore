@@ -52,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Transactional
     @Override
-    public void updateEmployee(EmployeeDTO employeeDTO, Long id) {
+    public void updateEmployee(EmployeeDTO employeeDTO, long id) {
         Employee employee = employeeCheck(id);
 
         modelMapper.map(employeeDTO, employee);
@@ -67,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Transactional
     @Override
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(long id) {
         employeeRepository.delete(employeeCheck(id));
     }
 
@@ -79,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Transactional
     @Override
-    public EmployeeDTO getEmployee(Long id) {
+    public EmployeeDTO getEmployee(long id) {
         Employee employee = employeeCheck(id);
         return modelMapper.map(employee, EmployeeDTO.class);
     }
@@ -107,7 +107,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Transactional
     @Override
-    public Employee employeeCheck(Long id) {
+    public Employee employeeCheck(long id) {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFound("Сотрудник не найден"));
     }

@@ -9,11 +9,11 @@ public interface PurchaseTypeService {
 
     Long createPurchaseType(PurchaseTypeDTO purchaseTypeDTO);
 
-    void updatePurchaseType(PurchaseTypeDTO purchaseTypeDTO, Long id);
+    void updatePurchaseType(PurchaseTypeDTO purchaseTypeDTO, long id);
 
-    void deletePurchaseType(Long id);
+    void deletePurchaseType(long id);
 
-    PurchaseTypeDTO getPurchaseType(Long id);
+    PurchaseTypeDTO getPurchaseType(long id);
 
     List<PurchaseType> getAllPurchaseTypes(int page, int size);
 }

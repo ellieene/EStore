@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ElectroShopServiceImpl implements ElectroShopService {
 
     private final ElectroShopRepository electroShopRepository;
@@ -38,7 +39,7 @@ public class ElectroShopServiceImpl implements ElectroShopService {
      * @param shop          Магазин
      * @param count         Кол-во
      */
-    @Transactional
+    @Override
     public void setCount(ElectroItem electroItemId, Shop shop, int count) {
         ElectroShopId id = new ElectroShopId(shop.getId(), electroItemId.getId());
         Optional<ElectroShop> electroShopOptional = electroShopRepository.findById(id);
@@ -58,7 +59,7 @@ public class ElectroShopServiceImpl implements ElectroShopService {
      *
      * @param purchasesDropRequest DTO заказа
      */
-    @Transactional
+    @Override
     public void setCountTest(PurchasesDropRequest purchasesDropRequest) {
         Shop shop = shopRepository.findAllByNameAndAddress(purchasesDropRequest.getShop().getName(),
                         purchasesDropRequest
@@ -96,7 +97,7 @@ public class ElectroShopServiceImpl implements ElectroShopService {
      * @param id ID магазина
      * @return List {@link ElectroItemResponce}
      */
-    @Transactional
+    @Override
     public List<ElectroItemResponce> getItemInShop(Long id, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         List<ElectroShop> electroShops = electroShopRepository.findByShopId(id, pageRequest);
