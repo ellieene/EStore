@@ -30,12 +30,6 @@ public class PurchaseServiceImpl implements PurchaseServes {
     private final ElectroItemServiceImpl electroItemService;
     private final ElectroShopServiceImpl electroShopService;
 
-    /**
-     * Создание покупки
-     *
-     * @param purchaseDTO DTO покупки
-     * @return ID покупки
-     */
     @Transactional
     @Override
     public Long createPurchase(PurchaseDTO purchaseDTO) {
@@ -53,12 +47,7 @@ public class PurchaseServiceImpl implements PurchaseServes {
         return purchaseRepository.save(purchase).getId();
     }
 
-    /**
-     * Изменение чека покупки
-     *
-     * @param purchaseDTO DTO чека
-     * @param id          ID чека
-     */
+
     @Transactional
     @Override
     public void updatePurchase(PurchaseDTO purchaseDTO, long id) {
@@ -67,11 +56,7 @@ public class PurchaseServiceImpl implements PurchaseServes {
         purchaseRepository.save(purchase);
     }
 
-    /**
-     * Удаление чека
-     *
-     * @param id ID чека
-     */
+
     @Transactional
     @Override
     public void deletePurchase(long id) {
@@ -79,23 +64,14 @@ public class PurchaseServiceImpl implements PurchaseServes {
 
     }
 
-    /**
-     * Получение чека по ID
-     *
-     * @param id ID чека
-     * @return {@link PurchaseDTO} чек
-     */
+
     @Transactional
     @Override
     public PurchaseResponse getPurchase(long id) {
         return modelMapper.map(purchaseCheck(id), PurchaseResponse.class);
     }
 
-    /**
-     * Получение всех чеков
-     *
-     * @return List {@link PurchaseResponse} чеки
-     */
+
     @Transactional
     @Override
     public List<PurchaseResponse> getAllPurchases(boolean sort, int page, int size) {

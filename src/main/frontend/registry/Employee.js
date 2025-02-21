@@ -1,5 +1,51 @@
 let currentPageEmployee = 0;
 const pageSizeEmployee = 10;
+let currentPageEmployeeTop = 0;
+const pageSizeEmployeeTop = 10;
+
+function employeesLoadTop() {
+    $.get(`http://localhost:8081/employee-top?page=${currentPageEmployeeTop}&size=${pageSizeEmployeeTop}`, function (data) {
+        let table = `
+                <h3>🏪 Лучшие сотрудники</h3>
+                <button class="btn btn-info mb-2" onclick="employeesLoad()">Назад</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Фамилия</th>
+                            <th>Имя</th>
+                            <th>Отчество</th>
+                            <th>Должность</th>
+                            <th>Сумма</th>
+                            <th>Магазин</th>
+                            <th>Пол</th>
+                        </tr>
+                    </thead>
+                    <tbody>${data.map(employee => `
+                        <tr>
+                            <td>${employee.id}</td>
+                            <td>${employee.lastName}</td>
+                            <td>${employee.firstName}</td>
+                            <td>${employee.patronymic || ''}</td>
+                            <td>${employee.position}</td>
+                            <th>${employee.summary}</th>
+                            <td>${employee.shop ? employee.shop.name : ''}</td>
+                            <td>${employee.gender}</td>
+                        </tr>
+                    `).join('')}</tbody>
+                </table>
+                <div>   
+                    <button class="btn btn-secondary" onclick="changePageEmployeeTop(-1)" ${currentPageEmployeeTop === 0 ? 'disabled' : ''}>Назад</button>
+                    <button class="btn btn-secondary" onclick="changePageEmployeeTop(1)">Вперед</button>
+                </div>`;
+        $('#content').html(table);
+    });
+}
+
+function changePageEmployeeTop(direction) {
+    currentPageEmployeeTop += direction;
+    employeesLoadTop();
+}
 
 function employeesLoad() {
     $.get(`http://localhost:8081/employee?page=${currentPageEmployee}&size=${pageSizeEmployee}`, function (data) {
@@ -37,6 +83,8 @@ function employeesLoad() {
                     `).join('')}</tbody>
                 </table>
                 <div>   
+                                <button class="btn btn-info mb-2" onclick="employeesLoadTop()">Лучшие сотрудники</button>
+
                     <button class="btn btn-secondary" onclick="changePageEmployee(-1)" ${currentPageEmployee === 0 ? 'disabled' : ''}>Назад</button>
                     <button class="btn btn-secondary" onclick="changePageEmployee(1)">Вперед</button>
                 </div>`;
@@ -48,6 +96,7 @@ function changePageEmployee(direction) {
     currentPageEmployee += direction;
     employeesLoad();
 }
+
 
 function employeeShowForm() {
     const form = `

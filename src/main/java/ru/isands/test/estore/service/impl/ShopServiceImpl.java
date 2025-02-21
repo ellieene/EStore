@@ -23,12 +23,7 @@ public class ShopServiceImpl implements ShopService {
     private final ShopRepository shopRepository;
     private final ModelMapper modelMapper;
 
-    /**
-     * Создание магазина
-     *
-     * @param shopDto магазин
-     * @return ID магазина
-     */
+
     @Transactional
     @Override
     public Long createShop(ShopDTO shopDto) {
@@ -40,12 +35,6 @@ public class ShopServiceImpl implements ShopService {
         return shopRepository.save(shop).getId();
     }
 
-    /**
-     * Изменение магазина
-     *
-     * @param id      магазина
-     * @param shopDto магазин
-     */
     @Transactional
     @Override
     public void updateShop(long id, ShopDTO shopDto) {
@@ -59,23 +48,12 @@ public class ShopServiceImpl implements ShopService {
         shopRepository.save(shop);
     }
 
-    /**
-     * Удаление магазина
-     *
-     * @param id магазина
-     */
     @Transactional
     @Override
     public void deleteShop(long id) {
         shopRepository.delete(shopCheckinId(id));
     }
 
-    /**
-     * Получить один магазин
-     *
-     * @param id магазина
-     * @return {@link ShopDTO}
-     */
     @Transactional
     @Override
     public ShopDTO getShop(long id) {
@@ -83,11 +61,7 @@ public class ShopServiceImpl implements ShopService {
         return modelMapper.map(shop, ShopDTO.class);
     }
 
-    /**
-     * Получить все магазины
-     *
-     * @return List {@link ShopDTO}
-     */
+
     @Transactional
     @Override
     public List<Shop> getAllShops(int page, int size) {
@@ -95,12 +69,7 @@ public class ShopServiceImpl implements ShopService {
         return shopRepository.findAll(pageRequest).getContent();
     }
 
-    /**
-     * Проверка магазина через сущность
-     *
-     * @param shop магазин
-     * @return {@link Shop}
-     */
+
     @Transactional
     @Override
     public Shop shopCheckInDTO(ShopDTO shop) {

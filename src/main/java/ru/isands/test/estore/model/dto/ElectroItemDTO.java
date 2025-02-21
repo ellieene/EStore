@@ -3,6 +3,8 @@ package ru.isands.test.estore.model.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.validation.constraints.Size;
+
 /**
  * DTO для товара
  */
@@ -13,6 +15,7 @@ public class ElectroItemDTO {
     private Long id;
 
     @Schema(description = "Название товара", example = "Шуроповерт Titan-300w", required = true)
+    @Size(max = 150,  message = "Название не должно превышать 150 символов")
     private String name;
 
     @Schema(description = "Цена", example = "3000", required = true)

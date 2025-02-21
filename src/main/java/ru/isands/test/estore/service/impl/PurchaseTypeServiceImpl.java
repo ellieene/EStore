@@ -38,12 +38,6 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
         return purchaseTypeRepository.save(purchaseType).getId();
     }
 
-    /**
-     * Изменение типа оплаты
-     *
-     * @param purchaseTypeDTO DTO типа оплаты
-     * @param id              ID типа оплаты
-     */
     @Transactional
     @Override
     public void updatePurchaseType(PurchaseTypeDTO purchaseTypeDTO, long id) {
@@ -57,23 +51,12 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
         purchaseTypeRepository.save(purchaseType);
     }
 
-    /**
-     * Удаление типа оплаты
-     *
-     * @param id ID типа оплаты
-     */
     @Transactional
     @Override
     public void deletePurchaseType(long id) {
         purchaseTypeRepository.delete(purchaseTypeCheck(id));
     }
 
-    /**
-     * Получение типа оплаты
-     *
-     * @param id Id типа оплаты
-     * @return {@link PurchaseTypeDTO}
-     */
     @Transactional
     @Override
     public PurchaseTypeDTO getPurchaseType(long id) {
@@ -82,11 +65,6 @@ public class PurchaseTypeServiceImpl implements PurchaseTypeService {
         return modelMapper.map(purchaseType, PurchaseTypeDTO.class);
     }
 
-    /**
-     * Получение всех типов оплаты
-     *
-     * @return List {@link PurchaseType}
-     */
     @Transactional
     @Override
     public List<PurchaseType> getAllPurchaseTypes(int page, int size) {

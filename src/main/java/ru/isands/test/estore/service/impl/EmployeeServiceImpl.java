@@ -27,12 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final ShopServiceImpl shopService;
     private final EmployeeRepository employeeRepository;
 
-    /**
-     * Добавление нового сотрудника
-     *
-     * @param employeeDTO новый сотрудник
-     * @return ID нового сотрудника
-     */
+
     @Transactional
     @Override
     public Long addEmployee(EmployeeDTO employeeDTO) {
@@ -44,12 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee.getId();
     }
 
-    /**
-     * Обновляем сотрудника
-     *
-     * @param employeeDTO сотрудник
-     * @param id          сотрудника которого хотим изменить
-     */
     @Transactional
     @Override
     public void updateEmployee(EmployeeDTO employeeDTO, long id) {
@@ -60,23 +49,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
     }
 
-    /**
-     * Удаление сотрудника
-     *
-     * @param id сотрудника
-     */
     @Transactional
     @Override
     public void deleteEmployee(long id) {
         employeeRepository.delete(employeeCheck(id));
     }
 
-    /**
-     * Получение сотрудника
-     *
-     * @param id сотрудника
-     * @return {@link EmployeeDTO}
-     */
     @Transactional
     @Override
     public EmployeeDTO getEmployee(long id) {
@@ -84,12 +62,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 
-
-    /**
-     * Получение всех сотрудников
-     *
-     * @return List {@link EmployeeDTO}
-     */
     @Transactional
     @Override
     public List<EmployeeDTO> getAllEmployees(int page, int size) {
@@ -99,12 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }.getType());
     }
 
-    /**
-     * Проверка сотрудника
-     *
-     * @param id ID сотрудника
-     * @return {@link Employee}
-     */
     @Transactional
     @Override
     public Employee employeeCheck(long id) {

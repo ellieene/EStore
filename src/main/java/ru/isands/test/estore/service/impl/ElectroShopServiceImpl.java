@@ -32,13 +32,7 @@ public class ElectroShopServiceImpl implements ElectroShopService {
     private final ModelMapper modelMapper;
     private final ShopServiceImpl shopServiceImpl;
 
-    /**
-     * Покупка товара
-     *
-     * @param electroItemId ID товара
-     * @param shop          Магазин
-     * @param count         Кол-во
-     */
+
     @Override
     public void setCount(ElectroItem electroItemId, Shop shop, int count) {
         ElectroShopId id = new ElectroShopId(shop.getId(), electroItemId.getId());
@@ -54,11 +48,7 @@ public class ElectroShopServiceImpl implements ElectroShopService {
         }
     }
 
-    /**
-     * Заказ товара в магазин
-     *
-     * @param purchasesDropRequest DTO заказа
-     */
+
     @Override
     public void setCountTest(PurchasesDropRequest purchasesDropRequest) {
         Shop shop = shopRepository.findAllByNameAndAddress(purchasesDropRequest.getShop().getName(),
@@ -91,12 +81,7 @@ public class ElectroShopServiceImpl implements ElectroShopService {
         }
     }
 
-    /**
-     * Кокой и какое кол-во товара в магазине
-     *
-     * @param id ID магазина
-     * @return List {@link ElectroItemResponce}
-     */
+
     @Override
     public List<ElectroItemResponce> getItemInShop(Long id, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);

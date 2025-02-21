@@ -22,12 +22,6 @@ public class PositionServiceImpl implements PositionService {
     private final ModelMapper modelMapper;
 
 
-    /**
-     * Создание должности
-     *
-     * @param positionDto должность
-     * @return ID должности
-     */
     @Transactional
     @Override
     public Long createJobTitle(PositionDTO positionDto) {
@@ -40,12 +34,7 @@ public class PositionServiceImpl implements PositionService {
         return jobTitleRepository.save(position1).getId();
     }
 
-    /**
-     * Изменение должности
-     *
-     * @param positionDTO DTO должности
-     * @param id          ID должности
-     */
+
     @Transactional
     @Override
     public void updateJobTitle(PositionDTO positionDTO, long id) {
@@ -59,23 +48,12 @@ public class PositionServiceImpl implements PositionService {
         jobTitleRepository.save(position);
     }
 
-    /**
-     * Удаление должности
-     *
-     * @param id ID должности
-     */
     @Transactional
     @Override
     public void deleteJobTitle(long id) {
         jobTitleRepository.delete(positionCheck(id));
     }
 
-    /**
-     * Получение должности
-     *
-     * @param id ID должности
-     * @return {@link PositionDTO}
-     */
     @Transactional
     @Override
     public PositionDTO getJobTitle(long id) {
@@ -83,11 +61,6 @@ public class PositionServiceImpl implements PositionService {
         return modelMapper.map(position, PositionDTO.class);
     }
 
-    /**
-     * Получение всех должностей
-     *
-     * @return List {@link Position}
-     */
     @Transactional
     @Override
     public List<Position> getJobTitles(int page, int size) {

@@ -1,4 +1,4 @@
-package ru.isands.test.estore.configuration.mapper;
+package ru.isands.test.estore.mapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -87,8 +87,26 @@ function electroItemShowForm() {
         const archive = $('#electroItem-archive').is(':checked');
         const description = $('#electroItem-description').val();
 
-        $.post('http://localhost:8081/electro-item', { name, price, electronicType, archive, description }, function () {
-            electroItemsLoad();
+        const data = {
+            name,
+            price,
+            electronicType,
+            archive,
+            description
+        };
+
+        $.ajax({
+            url: 'http://localhost:8081/electro-item',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function () {
+                electroItemsLoad();
+            },
+            error: function (xhr, status, error) {
+                const errorMessage = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Неизвестная ошибка';
+                alert(`Ошибка: ${errorMessage}`);
+            }
         });
     });
 }

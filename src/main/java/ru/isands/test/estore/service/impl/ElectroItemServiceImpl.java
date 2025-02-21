@@ -24,12 +24,7 @@ public class ElectroItemServiceImpl implements ElectroItemService {
     private final ElectroItemRepository repository;
     private final ModelMapper modelMapper;
 
-    /**
-     * Создание нового товара
-     *
-     * @param electroItemDTO DTO товара
-     * @return ID нового товара
-     */
+
     @Transactional
     @Override
     public Long addElectroItem(ElectroItemDTO electroItemDTO) {
@@ -42,12 +37,6 @@ public class ElectroItemServiceImpl implements ElectroItemService {
         return repository.save(electroItem).getId();
     }
 
-    /**
-     * Изменение товара
-     *
-     * @param electroItemDTO {@link ElectroItemDTO}
-     * @param id             ID товара
-     */
     @Transactional
     @Override
     public void updateElectroItem(ElectroItemDTO electroItemDTO, long id) {
@@ -61,23 +50,12 @@ public class ElectroItemServiceImpl implements ElectroItemService {
         repository.save(electroItem);
     }
 
-    /**
-     * Получение товара
-     *
-     * @param id ID товара
-     * @return {@link ElectroItemDTO}
-     */
     @Transactional
     @Override
     public ElectroItemDTO getElectroItem(long id) {
         return modelMapper.map(electroItemCheck(id), ElectroItemDTO.class);
     }
 
-    /**
-     * Получение всех товаров
-     *
-     * @return List {@link ElectroItemDTO}
-     */
     @Transactional
     @Override
     public List<ElectroItemDTO> getElectroItemAll(int page, int size) {
@@ -87,23 +65,12 @@ public class ElectroItemServiceImpl implements ElectroItemService {
         }.getType());
     }
 
-    /**
-     * Удаление товара
-     *
-     * @param id ID товара
-     */
     @Transactional
     @Override
     public void deleteElectroItem(long id) {
         repository.delete(electroItemCheck(id));
     }
 
-    /**
-     * Проверка товара через поле name
-     *
-     * @param name Название товара
-     * @return {@link ElectroItem}
-     */
     @Transactional
     @Override
     public ElectroItem electroItemCheck(String name) {
