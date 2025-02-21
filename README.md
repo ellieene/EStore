@@ -7,6 +7,12 @@
 ## Запуск
 
 ```bash
+docker-compose up --build db
+```
+```bash
+mvn clean package
+```
+```bash
 docker-compose up --build
 ```
 [Frontend](http://localhost/#)
